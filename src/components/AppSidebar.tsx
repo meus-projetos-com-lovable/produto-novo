@@ -26,8 +26,8 @@ export function AppSidebar() {
   return (
     <Sidebar collapsible="icon">
       <SidebarContent>
-        <div className={`flex items-center gap-2 px-4 py-4 ${collapsed ? "justify-center" : ""}`}>
-          <img src={logoIbmecJr} alt="Ibmec Jr" className={collapsed ? "h-7 w-7 object-contain" : "h-9 object-contain"} />
+        <div className={`flex items-center gap-2 px-4 py-5 ${collapsed ? "justify-center" : ""}`}>
+          <img src={logoIbmecJr} alt="Ibmec Jr" className={`${collapsed ? "h-8 w-8" : "h-14"} object-contain brightness-0`} />
         </div>
         <SidebarGroup>
           <SidebarGroupLabel>Menu Principal</SidebarGroupLabel>
