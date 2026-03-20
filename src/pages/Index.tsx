@@ -58,16 +58,14 @@ const Index = () => {
         </div>
       </div>
 
+      {/* @ts-ignore - react-grid-layout v2 API */}
       <GridLayout
-        className="layout"
-        layout={layouts as any}
-        cols={12}
-        rowHeight={80}
         width={width}
+        layout={layouts as any}
+        gridConfig={{ cols: 12, rowHeight: 80, margin: [12, 12] as any }}
+        dragConfig={{ enabled: true, handle: ".drag-handle" }}
+        resizeConfig={{ enabled: true }}
         onLayoutChange={(layout: any) => updateLayouts(layout)}
-        draggableHandle=".drag-handle"
-        isResizable
-        isDraggable
       >
         {pinnedItems.map((item) => (
           <div key={item.id} className="bg-card rounded-xl border shadow-sm hover:shadow-md transition-shadow overflow-hidden flex flex-col">
