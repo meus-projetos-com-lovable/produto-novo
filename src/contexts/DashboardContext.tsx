@@ -12,6 +12,16 @@ export interface PinnedItem {
   chartData?: { name: string; value: number }[];
 }
 
+interface LayoutItem {
+  i: string;
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+  minW?: number;
+  minH?: number;
+}
+
 interface DashboardContextType {
   pinnedItems: PinnedItem[];
   layouts: Layout[];
