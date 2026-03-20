@@ -73,7 +73,7 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
     setLayouts((prev) => prev.filter((l) => l.i !== id));
   }, []);
 
-  const updateLayouts = useCallback((newLayouts: Layout[]) => {
+  const updateLayouts = useCallback((newLayouts: LayoutItem[]) => {
     setLayouts(newLayouts);
   }, []);
 

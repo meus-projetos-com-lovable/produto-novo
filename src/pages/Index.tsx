@@ -1,8 +1,8 @@
 import { useDashboard } from "@/contexts/DashboardContext";
 import { useNavigate } from "react-router-dom";
 import { LayoutGrid, Pin, X, GripVertical } from "lucide-react";
-import { Responsive } from "react-grid-layout";
-import WidthProvider from "react-grid-layout/build/components/WidthProvider";
+// @ts-ignore
+import { Responsive, WidthProvider } from "react-grid-layout";
 import "react-grid-layout/css/styles.css";
 import { ContentChart } from "@/components/ContentChart";
 
