@@ -6,51 +6,51 @@
 
 @layer base {
   :root {
-    --background: 150 10% 97%;
-    --foreground: 210 20% 12%;
+    --background: 72 30% 90%;
+    --foreground: 200 15% 15%;
 
     --card: 0 0% 100%;
-    --card-foreground: 210 20% 12%;
+    --card-foreground: 200 15% 15%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 210 20% 12%;
+    --popover-foreground: 200 15% 15%;
 
-    --primary: 174 62% 40%;
+    --primary: 182 58% 38%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 150 10% 93%;
-    --secondary-foreground: 210 20% 12%;
+    --secondary: 72 20% 85%;
+    --secondary-foreground: 200 15% 15%;
 
-    --muted: 150 8% 93%;
-    --muted-foreground: 210 10% 46%;
+    --muted: 72 18% 87%;
+    --muted-foreground: 200 10% 42%;
 
-    --accent: 174 62% 40%;
+    --accent: 182 58% 38%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 150 10% 88%;
-    --input: 150 10% 88%;
-    --ring: 174 62% 40%;
+    --border: 72 15% 83%;
+    --input: 72 15% 83%;
+    --ring: 182 58% 38%;
 
-    --radius: 0.625rem;
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 210 15% 30%;
-    --sidebar-primary: 174 62% 40%;
+    --sidebar-foreground: 200 12% 28%;
+    --sidebar-primary: 182 58% 38%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 174 62% 95%;
-    --sidebar-accent-foreground: 174 62% 30%;
-    --sidebar-border: 150 10% 91%;
-    --sidebar-ring: 174 62% 40%;
+    --sidebar-accent: 182 50% 93%;
+    --sidebar-accent-foreground: 182 58% 28%;
+    --sidebar-border: 72 12% 90%;
+    --sidebar-ring: 182 58% 38%;
 
     --status-success: 152 60% 42%;
     --status-warning: 38 92% 50%;
     --status-danger: 0 72% 51%;
     --status-info: 210 80% 55%;
 
-    --chart-1: 174 62% 40%;
+    --chart-1: 182 58% 38%;
     --chart-2: 210 80% 55%;
     --chart-3: 38 92% 50%;
     --chart-4: 152 60% 42%;

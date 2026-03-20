@@ -1,6 +1,7 @@
 import { LayoutDashboard, FolderKanban } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
+import logoIbmecJr from "@/assets/logo-ibmecjr.png";
 import {
   Sidebar,
   SidebarContent,
@@ -21,16 +22,13 @@ const items = [
 export function AppSidebar() {
   const { state } = useSidebar();
   const collapsed = state === "collapsed";
-  const location = useLocation();
 
   return (
     <Sidebar collapsible="icon">
       <SidebarContent>
-        {!collapsed && (
-          <div className="px-4 py-5">
-            <span className="text-lg font-bold tracking-tight text-foreground">ConsultPro</span>
-          </div>
-        )}
+        <div className={`flex items-center gap-2 px-4 py-4 ${collapsed ? "justify-center" : ""}`}>
+          <img src={logoIbmecJr} alt="Ibmec Jr" className={collapsed ? "h-7 w-7 object-contain" : "h-9 object-contain"} />
+        </div>
         <SidebarGroup>
           <SidebarGroupLabel>Menu Principal</SidebarGroupLabel>
           <SidebarGroupContent>
