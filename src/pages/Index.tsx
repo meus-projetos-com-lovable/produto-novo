@@ -1,16 +1,27 @@
 import { useDashboard } from "@/contexts/DashboardContext";
 import { useNavigate } from "react-router-dom";
 import { LayoutGrid, Pin, X, GripVertical } from "lucide-react";
-// @ts-ignore
-import { Responsive, WidthProvider } from "react-grid-layout";
+import { GridLayout } from "react-grid-layout";
 import "react-grid-layout/css/styles.css";
 import { ContentChart } from "@/components/ContentChart";
-
-const ResponsiveGridLayout = WidthProvider(Responsive);
+import { useRef, useState, useEffect } from "react";
 
 const Index = () => {
   const { pinnedItems, layouts, updateLayouts, unpinItem } = useDashboard();
   const navigate = useNavigate();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [width, setWidth] = useState(1200);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+    const obs = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        setWidth(entry.contentRect.width);
+      }
+    });
+    obs.observe(containerRef.current);
+    return () => obs.disconnect();
+  }, []);
 
   if (pinnedItems.length === 0) {
     return (
@@ -35,7 +46,7 @@ const Index = () => {
   }
 
   return (
-    <div className="p-4 sm:p-6 animate-fade-up">
+    <div className="p-4 sm:p-6 animate-fade-up" ref={containerRef}>
       <div className="flex items-center justify-between mb-6">
         <div>
           <h2 className="text-lg font-semibold text-foreground">Minha Dashboard</h2>
@@ -47,16 +58,14 @@ const Index = () => {
         </div>
       </div>
 
-      <ResponsiveGridLayout
-        className="layout"
-        layouts={{ lg: layouts }}
-        breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
-        cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
-        rowHeight={80}
-        onLayoutChange={(layout) => updateLayouts(layout)}
-        draggableHandle=".drag-handle"
-        isResizable
-        isDraggable
+      {/* @ts-ignore - react-grid-layout v2 API */}
+      <GridLayout
+        width={width}
+        layout={layouts as any}
+        gridConfig={{ cols: 12, rowHeight: 80, margin: [12, 12] as any }}
+        dragConfig={{ enabled: true, handle: ".drag-handle" }}
+        resizeConfig={{ enabled: true }}
+        onLayoutChange={(layout: any) => updateLayouts(layout)}
       >
         {pinnedItems.map((item) => (
           <div key={item.id} className="bg-card rounded-xl border shadow-sm hover:shadow-md transition-shadow overflow-hidden flex flex-col">
@@ -90,7 +99,7 @@ const Index = () => {
             </div>
           </div>
         ))}
-      </ResponsiveGridLayout>
+      </GridLayout>
     </div>
   );
 };
