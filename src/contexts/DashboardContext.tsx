@@ -42,7 +42,7 @@ export function DashboardProvider({ children }: { children: React.ReactNode }) {
     return saved ? JSON.parse(saved) : [];
   });
 
-  const [layouts, setLayouts] = useState<Layout[]>(() => {
+  const [layouts, setLayouts] = useState<LayoutItem[]>(() => {
     const saved = localStorage.getItem(LAYOUT_KEY);
     return saved ? JSON.parse(saved) : [];
   });
