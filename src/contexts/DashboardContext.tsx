@@ -24,7 +24,7 @@ interface LayoutItem {
 
 interface DashboardContextType {
   pinnedItems: PinnedItem[];
-  layouts: Layout[];
+  layouts: LayoutItem[];
   pinItem: (item: PinnedItem) => void;
   unpinItem: (id: string) => void;
   updateLayouts: (layouts: Layout[]) => void;
