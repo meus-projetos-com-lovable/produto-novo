@@ -1,12 +1,11 @@
 import { useDashboard } from "@/contexts/DashboardContext";
 import { useNavigate } from "react-router-dom";
 import { LayoutGrid, Pin, X, GripVertical } from "lucide-react";
-// @ts-ignore
-import { Responsive, WidthProvider } from "react-grid-layout";
+import { ResponsiveGridLayout } from "react-grid-layout";
 import "react-grid-layout/css/styles.css";
 import { ContentChart } from "@/components/ContentChart";
+import { useRef, useState, useEffect } from "react";
 
-const ResponsiveGridLayout = WidthProvider(Responsive);
 
 const Index = () => {
   const { pinnedItems, layouts, updateLayouts, unpinItem } = useDashboard();
