@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
-import type { Layout } from "react-grid-layout";
 
 export interface PinnedItem {
   id: string;
