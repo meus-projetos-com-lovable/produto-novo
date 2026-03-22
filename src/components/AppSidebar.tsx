@@ -29,7 +29,7 @@ export function AppSidebar() {
         <div className={`flex items-center gap-2 px-4 pb-0 pt-2 ${collapsed ? "justify-center" : ""}`}>
           <img src={logoIbmecJr} alt="Ibmec Jr" className={`${collapsed ? "h-10 w-10" : "w-full"} object-contain brightness-0`} />
         </div>
-        <SidebarGroup>
+        <SidebarGroup className="pt-1">
           <SidebarGroupLabel>Menu Principal</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
