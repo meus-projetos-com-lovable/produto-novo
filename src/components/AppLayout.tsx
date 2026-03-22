@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "./AppSidebar";
 import { Bell, Search } from "lucide-react";
+import logoHeader from "@/assets/logoheader.png";
 
 export function AppLayout() {
   return (
@@ -12,6 +13,7 @@ export function AppLayout() {
           <header className="h-14 flex items-center justify-between border-b bg-card px-5 shrink-0">
             <div className="flex items-center gap-2">
               <SidebarTrigger />
+              <img src={logoHeader} alt="Ibmec Jr" className="h-8 object-contain brightness-0" />
               <div className="hidden sm:block">
                 <h1 className="text-sm font-semibold text-foreground">Bem-vindo(a) de volta, Cliente!</h1>
                 <p className="text-xs text-muted-foreground">É a hora de administrar seus projetos</p>
