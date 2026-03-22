@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "./AppSidebar";
 import { Bell, Search } from "lucide-react";
+import logoHeader from "@/assets/logoheader.png";
 
 export function AppLayout() {
   return (
