@@ -47,20 +47,28 @@ const Index = () => {
     );
   }
 
-  // Mobile: stack cards vertically
+  // Mobile: use grid layout with resize enabled but drag disabled
   if (isMobile) {
     return (
-      <div className="p-4 pb-20 animate-fade-up">
+      <div className="p-4 pb-20 animate-fade-up" ref={containerRef}>
         <div className="flex items-center justify-between mb-4">
           <div>
             <h2 className="text-base font-semibold text-foreground">Minha Dashboard</h2>
             <p className="text-xs text-muted-foreground">{pinnedItems.length} itens fixados</p>
           </div>
         </div>
-        <div className="space-y-3">
+        {/* @ts-ignore */}
+        <GridLayout
+          width={width}
+          layout={(layouts as any).map((l: any) => ({ ...l, w: 12 }))}
+          gridConfig={{ cols: 12, rowHeight: 80, margin: [8, 8] as any }}
+          dragConfig={{ enabled: false }}
+          resizeConfig={{ enabled: true }}
+          onLayoutChange={(layout: any) => updateLayouts(layout)}
+        >
           {pinnedItems.map((item) => (
-            <div key={item.id} className="bg-card rounded-xl border shadow-sm overflow-hidden">
-              <div className="flex items-center justify-between px-3 py-2.5 border-b bg-secondary/30">
+            <div key={item.id} className="bg-card rounded-xl border shadow-sm overflow-hidden flex flex-col">
+              <div className="flex items-center justify-between px-3 py-2.5 border-b bg-secondary/30 shrink-0">
                 <div className="min-w-0">
                   <p className="text-xs font-medium truncate">{item.contentTitle}</p>
                   <p className="text-[10px] text-muted-foreground truncate">{item.projectName}</p>
@@ -72,7 +80,7 @@ const Index = () => {
                   <X className="h-4 w-4" />
                 </button>
               </div>
-              <div className="p-3 h-48">
+              <div className="flex-1 p-3 min-h-0">
                 {item.chartData && item.chartType ? (
                   <ContentChart type={item.chartType as any} data={item.chartData} />
                 ) : (
@@ -85,7 +93,7 @@ const Index = () => {
               </div>
             </div>
           ))}
-        </div>
+        </GridLayout>
       </div>
     );
   }
