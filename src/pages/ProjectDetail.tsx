@@ -191,9 +191,11 @@ export default function ProjectDetail() {
                       <h4 className="text-xs sm:text-sm font-medium">{content.title}</h4>
                       <p className="text-[10px] sm:text-xs text-muted-foreground mt-0.5">{content.description}</p>
                       <div className={`flex gap-2 mt-2.5 sm:mt-3 ${isMobile ? "flex-col" : ""}`}>
-                        <button className="flex items-center justify-center gap-1.5 text-xs font-medium px-3 py-2 sm:py-1.5 rounded-lg bg-secondary hover:bg-secondary/80 transition-colors">
-                          <Download className="h-3 w-3" /> Download
-                        </button>
+                        {!(content.chartData && content.chartType) && (
+                          <button className="flex items-center justify-center gap-1.5 text-xs font-medium px-3 py-2 sm:py-1.5 rounded-lg bg-secondary hover:bg-secondary/80 transition-colors">
+                            <Download className="h-3 w-3" /> Download
+                          </button>
+                        )}
                         <button
                           onClick={() => handlePin(content)}
                           className={`flex items-center justify-center gap-1.5 text-xs font-medium px-3 py-2 sm:py-1.5 rounded-lg transition-colors ${

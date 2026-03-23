@@ -1,6 +1,6 @@
 import { useDashboard } from "@/contexts/DashboardContext";
 import { useNavigate } from "react-router-dom";
-import { LayoutGrid, Pin, X, GripVertical } from "lucide-react";
+import { LayoutGrid, Pin, X, GripVertical, Download, Pencil, Check, Move } from "lucide-react";
 import { GridLayout } from "react-grid-layout";
 import "react-grid-layout/css/styles.css";
 import { ContentChart } from "@/components/ContentChart";
@@ -13,6 +13,8 @@ const Index = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(1200);
   const isMobile = useIsMobile();
+  const [isEditing, setIsEditing] = useState(false);
+  const [savedLayouts, setSavedLayouts] = useState<any>(null);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -32,7 +34,7 @@ const Index = () => {
           <LayoutGrid className="h-7 w-7 sm:h-8 sm:w-8 text-primary" />
         </div>
         <h2 className="text-lg sm:text-xl font-semibold text-foreground mb-2 text-balance text-center">
-          Sua dashboard está vazia
+          Seu dashboard está vazio
         </h2>
         <p className="text-sm text-muted-foreground text-center max-w-md mb-5 sm:mb-6 px-4">
           Acesse seus projetos e fixe conteúdos aqui para criar um painel personalizado.
@@ -50,11 +52,62 @@ const Index = () => {
   // Mobile: use grid layout with resize enabled but drag disabled
   if (isMobile) {
     return (
-      <div className="p-4 pb-20 animate-fade-up" ref={containerRef}>
+      <div className={`p-4 pb-20 animate-fade-up ${isEditing ? 'mobile-edit-grid' : ''}`} ref={containerRef}>
+        <style>{`
+          .mobile-edit-grid .react-resizable-handle {
+            width: 48px !important;
+            height: 48px !important;
+            bottom: 0 !important;
+            right: 0 !important;
+            cursor: pointer !important;
+            z-index: 20 !important;
+          }
+          .mobile-edit-grid .react-resizable-handle::after {
+            display: none !important;
+          }
+        `}</style>
         <div className="flex items-center justify-between mb-4">
           <div>
             <h2 className="text-base font-semibold text-foreground">Minha Dashboard</h2>
             <p className="text-xs text-muted-foreground">{pinnedItems.length} itens fixados</p>
+          </div>
+          <div className="flex items-center gap-2">
+            {!isEditing ? (
+              <button
+                onClick={() => {
+                  setSavedLayouts(layouts);
+                  setIsEditing(true);
+                }}
+                className="p-2 rounded-lg bg-secondary text-secondary-foreground hover:bg-secondary/80 transition-colors"
+                aria-label="Editar"
+              >
+                <Pencil className="h-4 w-4" />
+              </button>
+            ) : (
+              <>
+                <button
+                  onClick={() => {
+                    if (savedLayouts) updateLayouts(savedLayouts);
+                    setIsEditing(false);
+                    setSavedLayouts(null);
+                  }}
+                  className="p-2 rounded-lg bg-destructive/10 text-destructive hover:bg-destructive/20 transition-colors border border-transparent"
+                  aria-label="Cancelar"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+                <button
+                  onClick={() => {
+                    setIsEditing(false);
+                    setSavedLayouts(null);
+                  }}
+                  className="p-2 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
+                  aria-label="Salvar"
+                >
+                  <Check className="h-4 w-4" />
+                </button>
+              </>
+            )}
           </div>
         </div>
         {/* @ts-ignore */}
@@ -63,8 +116,16 @@ const Index = () => {
           layout={(layouts as any).map((l: any) => ({ ...l, w: 12 }))}
           gridConfig={{ cols: 12, rowHeight: 80, margin: [8, 8] as any }}
           dragConfig={{ enabled: false }}
-          resizeConfig={{ enabled: true }}
-          onLayoutChange={(layout: any) => updateLayouts(layout)}
+          resizeConfig={{ enabled: isEditing }}
+          onLayoutChange={(layout: any) => {
+            if (isEditing) {
+              const adjustedLayout = layout.map((newItem: any) => {
+                const oldItem = (layouts as any).find((item: any) => item.i === newItem.i);
+                return { ...newItem, w: oldItem ? oldItem.w : newItem.w, x: oldItem ? oldItem.x : newItem.x };
+              });
+              updateLayouts(adjustedLayout);
+            }
+          }}
         >
           {pinnedItems.map((item) => (
             <div key={item.id} className="bg-card rounded-xl border shadow-sm overflow-hidden flex flex-col">
@@ -73,14 +134,21 @@ const Index = () => {
                   <p className="text-xs font-medium truncate">{item.contentTitle}</p>
                   <p className="text-[10px] text-muted-foreground truncate">{item.projectName}</p>
                 </div>
-                <button
-                  onClick={() => unpinItem(item.id)}
-                  className="p-1.5 rounded-lg hover:bg-destructive/10 text-muted-foreground hover:text-destructive transition-colors shrink-0 ml-2"
-                >
-                  <X className="h-4 w-4" />
-                </button>
+                <div className="flex items-center gap-1 shrink-0 ml-2">
+                  {!(item.chartData && item.chartType) && (
+                    <button className="p-1.5 rounded-lg hover:bg-secondary text-muted-foreground transition-colors">
+                      <Download className="h-4 w-4" />
+                    </button>
+                  )}
+                  <button
+                    onClick={() => unpinItem(item.id)}
+                    className="p-1.5 rounded-lg hover:bg-destructive/10 text-muted-foreground hover:text-destructive transition-colors"
+                  >
+                    <X className="h-4 w-4" />
+                  </button>
+                </div>
               </div>
-              <div className="flex-1 p-3 min-h-0">
+              <div className="flex-1 p-3 min-h-0 relative">
                 {item.chartData && item.chartType ? (
                   <ContentChart type={item.chartType as any} data={item.chartData} />
                 ) : (
@@ -88,6 +156,13 @@ const Index = () => {
                     <Pin className="h-5 w-5 mb-2 opacity-40" />
                     <p className="text-xs">{item.contentType === "pdf" ? "Documento PDF" : item.contentType === "pptx" ? "Apresentação" : item.contentType === "image" ? "Imagem" : "Conteúdo"}</p>
                     <p className="text-[10px] mt-1">{item.contentDescription}</p>
+                  </div>
+                )}
+                
+                {/* Visual Resize Indicator */}
+                {isEditing && (
+                  <div className="absolute bottom-0 right-0 w-12 h-12 flex items-center justify-center pointer-events-none text-primary bg-primary/10 rounded-tl-[1.5rem]">
+                    <Move className="h-6 w-6" />
                   </div>
                 )}
               </div>
@@ -132,12 +207,19 @@ const Index = () => {
                   <p className="text-[10px] text-muted-foreground truncate">{item.projectName}</p>
                 </div>
               </div>
-              <button
-                onClick={() => unpinItem(item.id)}
-                className="p-1 rounded hover:bg-destructive/10 text-muted-foreground hover:text-destructive transition-colors shrink-0"
-              >
-                <X className="h-3.5 w-3.5" />
-              </button>
+              <div className="flex items-center gap-1 shrink-0">
+                {!(item.chartData && item.chartType) && (
+                  <button className="p-1 rounded hover:bg-secondary text-muted-foreground transition-colors">
+                    <Download className="h-3.5 w-3.5" />
+                  </button>
+                )}
+                <button
+                  onClick={() => unpinItem(item.id)}
+                  className="p-1 rounded hover:bg-destructive/10 text-muted-foreground hover:text-destructive transition-colors"
+                >
+                  <X className="h-3.5 w-3.5" />
+                </button>
+              </div>
             </div>
             <div className="flex-1 p-3 min-h-0">
               {item.chartData && item.chartType ? (
