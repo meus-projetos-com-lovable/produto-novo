@@ -1,3 +1,4 @@
+import React, { useState, useRef } from "react";
 import { Outlet } from "react-router-dom";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "./AppSidebar";
@@ -7,10 +8,25 @@ import logoHeader from "@/assets/logoheader.png";
 
 export function AppLayout() {
   const isMobile = useIsMobile();
+  const [showNav, setShowNav] = useState(true);
+  const lastScrollY = useRef(0);
+
+  const handleScroll = (e: React.UIEvent<HTMLElement>) => {
+    if (!isMobile) return;
+    const currentScrollY = e.currentTarget.scrollTop;
+    
+    // Hide when scrolling down past 50px, show when scrolling up
+    if (currentScrollY > lastScrollY.current + 8 && currentScrollY > 50) {
+      setShowNav(false);
+    } else if (currentScrollY < lastScrollY.current - 8) {
+      setShowNav(true);
+    }
+    lastScrollY.current = currentScrollY;
+  };
 
   return (
-    <SidebarProvider defaultOpen={!isMobile}>
-      <div className="min-h-screen flex w-full">
+    <SidebarProvider defaultOpen={false}>
+      <div className="min-h-screen flex w-full relative">
         {!isMobile && <AppSidebar />}
         <div className="flex-1 flex flex-col min-w-0">
           <header className="h-14 flex items-center justify-between border-b bg-card px-3 sm:px-5 shrink-0">
@@ -46,12 +62,20 @@ export function AppLayout() {
               )}
             </div>
           </header>
-          <main className="flex-1 overflow-auto">
+          <main className="flex-1 overflow-auto" onScroll={handleScroll}>
             <Outlet />
           </main>
 
           {/* Mobile bottom navigation */}
-          {isMobile && <MobileBottomNav />}
+          {isMobile && (
+            <div
+              className={`fixed bottom-0 left-0 right-0 z-40 transition-transform duration-300 ease-in-out ${
+                showNav ? "translate-y-0" : "translate-y-full"
+              }`}
+            >
+              <MobileBottomNav />
+            </div>
+          )}
         </div>
       </div>
     </SidebarProvider>
