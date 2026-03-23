@@ -17,7 +17,7 @@ export function AppLayout() {
             <div className="flex items-center gap-2">
               <SidebarTrigger className="shrink-0" />
               {!isMobile && (
-                <img src={logoHeader} alt="Ibmec Jr" className="h-8 object-contain brightness-0" />
+                <div />
               )}
               <div className={isMobile ? "ml-1" : ""}>
                 <h1 className="text-sm font-semibold text-foreground leading-tight">
