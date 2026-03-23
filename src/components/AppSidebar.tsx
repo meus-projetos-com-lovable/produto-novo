@@ -34,7 +34,7 @@ export function AppSidebar() {
             <img src={logoIbmecJr} alt="Ibmec Jr" className="w-3/4 object-contain brightness-0" />
           )}
         </div>
-        <SidebarGroup className="pt-1">
+        <SidebarGroup className="pt-4">
           <SidebarGroupLabel>Menu Principal</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
