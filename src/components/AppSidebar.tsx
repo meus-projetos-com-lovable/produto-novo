@@ -27,7 +27,7 @@ export function AppSidebar() {
   return (
     <Sidebar collapsible="icon">
       <SidebarContent>
-        <div className={`flex items-center gap-2 px-4 pb-0 pt-2 ${collapsed ? "justify-center" : ""}`}>
+        <div className={`flex items-center gap-2 px-6 pb-0 pt-4 ${collapsed ? "justify-center px-2" : ""}`}>
           {collapsed ? (
             <img src={logoIcon} alt="Ibmec Jr" className="h-8 w-8 object-contain brightness-0" />
           ) : (
