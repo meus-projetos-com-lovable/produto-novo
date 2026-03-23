@@ -27,14 +27,14 @@ export function AppSidebar() {
   return (
     <Sidebar collapsible="icon">
       <SidebarContent>
-        <div className={`flex items-center px-5 pt-3 pb-0 ${collapsed ? "justify-center px-2" : ""}`}>
+        <div className={`flex items-center gap-2 px-6 pb-0 pt-4 ${collapsed ? "justify-center px-2" : ""}`}>
           {collapsed ? (
-            <img src={logoIcon} alt="Ibmec Jr" className="h-7 w-7 object-contain brightness-0" />
+            <img src={logoIcon} alt="Ibmec Jr" className="h-8 w-8 object-contain brightness-0" />
           ) : (
-            <img src={logoIbmecJr} alt="Ibmec Jr" className="w-3/4 object-contain brightness-0" />
+            <img src={logoIbmecJr} alt="Ibmec Jr" className="w-full object-contain brightness-0" />
           )}
         </div>
-        <SidebarGroup className="pt-4">
+        <SidebarGroup className="pt-1">
           <SidebarGroupLabel>Menu Principal</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
