@@ -29,7 +29,7 @@ export function AppSidebar() {
       <SidebarContent>
         <div className={`flex items-center gap-2 px-4 pb-0 pt-2 ${collapsed ? "justify-center" : ""}`}>
           {collapsed ? (
-            <img src={logoIcon} alt="Ibmec Jr" className="h-8 w-8 object-contain" />
+            <img src={logoIcon} alt="Ibmec Jr" className="h-8 w-8 object-contain brightness-0" />
           ) : (
             <img src={logoIbmecJr} alt="Ibmec Jr" className="w-full object-contain brightness-0" />
           )}
