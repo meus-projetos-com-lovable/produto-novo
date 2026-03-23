@@ -11,7 +11,7 @@ export function AppLayout() {
   return (
     <SidebarProvider defaultOpen={!isMobile}>
       <div className="min-h-screen flex w-full">
-        <AppSidebar />
+        {!isMobile && <AppSidebar />}
         <div className="flex-1 flex flex-col min-w-0">
           <header className="h-14 flex items-center justify-between border-b bg-card px-3 sm:px-5 shrink-0">
             <div className="flex items-center gap-2">
