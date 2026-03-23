@@ -2,6 +2,7 @@ import { LayoutDashboard, FolderKanban } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useLocation } from "react-router-dom";
 import logoIbmecJr from "@/assets/logo-ibmecjr.png";
+import logoIcon from "@/assets/logo-icon.png";
 import {
   Sidebar,
   SidebarContent,
