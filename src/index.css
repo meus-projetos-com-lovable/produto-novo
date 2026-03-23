@@ -97,8 +97,11 @@
   @apply shadow-xl ring-2 ring-primary/20;
 }
 .react-grid-placeholder {
-  @apply bg-primary/10 rounded-lg border-2 border-dashed border-primary/30;
-  opacity: 1 !important;
+  @apply bg-secondary/50 rounded-xl;
+  opacity: 0.6 !important;
+  box-shadow: 0 4px 20px -4px hsl(var(--foreground) / 0.1);
+  border: none !important;
+  background-color: transparent !important;
 }
 .react-grid-item > .react-resizable-handle {
   position: absolute;
