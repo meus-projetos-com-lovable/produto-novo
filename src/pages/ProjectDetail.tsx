@@ -66,12 +66,12 @@ export default function ProjectDetail() {
         /* Mobile project header */
         <div className="mb-4">
           <div className="flex items-center gap-2 mb-1.5">
-            <h2 className="text-base font-semibold text-foreground leading-tight">{project.name}</h2>
+            <h2 className="text-base font-semibold text-foreground leading-tight select-text">{project.name}</h2>
             <span className={`text-[10px] font-medium px-2 py-0.5 rounded-full ${getStatusColor(project.status)}`}>
               {getStatusLabel(project.status)}
             </span>
           </div>
-          <p className="text-xs text-muted-foreground mb-3">{project.description}</p>
+          <p className="text-xs text-muted-foreground mb-3 select-text">{project.description}</p>
           <div className="flex items-center gap-3">
             <div className="flex-1 h-2 bg-secondary rounded-full overflow-hidden">
               <div className="h-full bg-primary rounded-full" style={{ width: `${project.progress}%` }} />
@@ -84,12 +84,12 @@ export default function ProjectDetail() {
         <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-6">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <h2 className="text-xl font-semibold text-foreground">{project.name}</h2>
+              <h2 className="text-xl font-semibold text-foreground select-text">{project.name}</h2>
               <span className={`text-[11px] font-medium px-2 py-0.5 rounded-full ${getStatusColor(project.status)}`}>
                 {getStatusLabel(project.status)}
               </span>
             </div>
-            <p className="text-sm text-muted-foreground">{project.description}</p>
+            <p className="text-sm text-muted-foreground select-text">{project.description}</p>
           </div>
           <div className="text-right shrink-0">
             <p className="text-3xl font-bold tabular-nums text-foreground">{project.progress}%</p>
@@ -138,9 +138,9 @@ export default function ProjectDetail() {
                     <Circle className="h-4 w-4 sm:h-5 sm:w-5 text-muted-foreground/40 shrink-0" />
                   )}
                   <div className="flex-1 min-w-0">
-                    <p className={`text-xs sm:text-sm ${m.completed ? "text-foreground" : "text-muted-foreground"}`}>{m.title}</p>
+                    <p className={`text-xs sm:text-sm select-text ${m.completed ? "text-foreground" : "text-muted-foreground"}`}>{m.title}</p>
                   </div>
-                  <span className="text-[10px] sm:text-xs text-muted-foreground tabular-nums shrink-0">{new Date(m.date).toLocaleDateString("pt-BR")}</span>
+                  <span className="text-[10px] sm:text-xs text-muted-foreground tabular-nums shrink-0 select-text">{new Date(m.date).toLocaleDateString("pt-BR")}</span>
                 </div>
               ))}
             </div>
@@ -188,8 +188,8 @@ export default function ProjectDetail() {
                       {contentIcon(content.type)}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h4 className="text-xs sm:text-sm font-medium">{content.title}</h4>
-                      <p className="text-[10px] sm:text-xs text-muted-foreground mt-0.5">{content.description}</p>
+                      <h4 className="text-xs sm:text-sm font-medium select-text">{content.title}</h4>
+                      <p className="text-[10px] sm:text-xs text-muted-foreground mt-0.5 select-text">{content.description}</p>
                       <div className={`flex gap-2 mt-2.5 sm:mt-3 ${isMobile ? "flex-col" : ""}`}>
                         {!(content.chartData && content.chartType) && (
                           <button className="flex items-center justify-center gap-1.5 text-xs font-medium px-3 py-2 sm:py-1.5 rounded-lg bg-secondary hover:bg-secondary/80 transition-colors">

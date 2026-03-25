@@ -9,7 +9,7 @@ export default function Projects() {
 
   if (isMobile) {
     return (
-      <div className="p-4 pb-20 animate-fade-up">
+      <div className="p-4 pb-20 animate-fade-up select-text">
         <div className="mb-4">
           <h2 className="text-base font-semibold text-foreground">Projetos</h2>
           <p className="text-xs text-muted-foreground">{projects.length} projetos ativos</p>
@@ -23,12 +23,12 @@ export default function Projects() {
               className="w-full text-left bg-card border rounded-xl p-3.5 hover:shadow-sm active:scale-[0.98] transition-all"
             >
               <div className="flex items-center justify-between mb-2">
-                <h3 className="font-medium text-sm text-foreground truncate flex-1 mr-2">{project.name}</h3>
+                <h3 className="font-medium text-sm text-foreground truncate flex-1 mr-2 select-text">{project.name}</h3>
                 <span className={`shrink-0 text-[10px] font-medium px-2 py-0.5 rounded-full ${getStatusColor(project.status)}`}>
                   {getStatusLabel(project.status)}
                 </span>
               </div>
-              <p className="text-xs text-muted-foreground line-clamp-1 mb-2.5">{project.description}</p>
+              <p className="text-xs text-muted-foreground line-clamp-1 mb-2.5 select-text">{project.description}</p>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <div className="w-24 h-1.5 bg-secondary rounded-full overflow-hidden">
@@ -46,7 +46,7 @@ export default function Projects() {
   }
 
   return (
-    <div className="p-4 sm:p-6 max-w-5xl animate-fade-up">
+    <div className="p-4 sm:p-6 max-w-5xl animate-fade-up select-text">
       <div className="mb-6">
         <h2 className="text-lg font-semibold text-foreground">Projetos</h2>
         <p className="text-sm text-muted-foreground">{projects.length} projetos ativos</p>
@@ -63,18 +63,18 @@ export default function Projects() {
             <div className="flex flex-col sm:flex-row sm:items-center gap-3">
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1">
-                  <h3 className="font-medium text-foreground truncate">{project.name}</h3>
+                  <h3 className="font-medium text-foreground truncate select-text">{project.name}</h3>
                   <span className={`shrink-0 text-[11px] font-medium px-2 py-0.5 rounded-full ${getStatusColor(project.status)}`}>
                     {getStatusLabel(project.status)}
                   </span>
                 </div>
-                <p className="text-sm text-muted-foreground line-clamp-1">{project.description}</p>
+                <p className="text-sm text-muted-foreground line-clamp-1 select-text">{project.description}</p>
                 <div className="flex items-center gap-3 mt-2 text-xs text-muted-foreground">
-                  <span className="flex items-center gap-1">
+                  <span className="flex items-center gap-1 select-text">
                     <Calendar className="h-3 w-3" />
                     {new Date(project.startDate).toLocaleDateString("pt-BR")} — {new Date(project.endDate).toLocaleDateString("pt-BR")}
                   </span>
-                  <span className="px-1.5 py-0.5 rounded bg-secondary text-secondary-foreground">{project.category}</span>
+                  <span className="px-1.5 py-0.5 rounded bg-secondary text-secondary-foreground select-text">{project.category}</span>
                 </div>
               </div>
 

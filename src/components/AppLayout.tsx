@@ -1,14 +1,17 @@
 import React, { useState, useRef } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "./AppSidebar";
-import { Bell, Search, Menu } from "lucide-react";
+import { Bell, Search, Menu, LayoutDashboard, FolderKanban, User } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import logoHeader from "@/assets/logoheader.png";
+import { NotificationModal } from "./modals/NotificationModal";
+import { ProfileModal } from "./modals/ProfileModal";
 
 export function AppLayout() {
   const isMobile = useIsMobile();
   const [showNav, setShowNav] = useState(true);
+  const [activeModal, setActiveModal] = useState<"notifications" | "profile" | null>(null);
   const lastScrollY = useRef(0);
 
   const handleScroll = (e: React.UIEvent<HTMLElement>) => {
@@ -45,20 +48,27 @@ export function AppLayout() {
               </div>
             </div>
             <div className="flex items-center gap-2 sm:gap-3">
-              <button className="p-2 rounded-lg hover:bg-secondary transition-colors">
-                <Search className="h-4 w-4 text-muted-foreground" />
-              </button>
-              <button className="p-2 rounded-lg hover:bg-secondary transition-colors relative">
-                <Bell className="h-4 w-4 text-muted-foreground" />
-                <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-destructive" />
-              </button>
+              <NotificationModal
+                open={activeModal === "notifications"}
+                onOpenChange={(open) => setActiveModal(open ? "notifications" : null)}
+              >
+                <button className="p-2 rounded-lg hover:bg-secondary transition-colors relative">
+                  <Bell className="h-4 w-4 text-muted-foreground" />
+                  <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-destructive" />
+                </button>
+              </NotificationModal>
               {!isMobile && (
-                <div className="flex items-center gap-2 pl-2 border-l">
-                  <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-xs font-semibold">
-                    CL
+                <ProfileModal
+                  open={activeModal === "profile"}
+                  onOpenChange={(open) => setActiveModal(open ? "profile" : null)}
+                >
+                  <div className="flex items-center gap-2 pl-2 border-l cursor-pointer hover:opacity-80 transition-opacity">
+                    <div className="h-8 w-8 rounded-full bg-primary flex items-center justify-center text-primary-foreground text-xs font-semibold">
+                      CL
+                    </div>
+                    <span className="text-sm font-medium">Cliente</span>
                   </div>
-                  <span className="text-sm font-medium">Cliente</span>
-                </div>
+                </ProfileModal>
               )}
             </div>
           </header>
@@ -73,7 +83,7 @@ export function AppLayout() {
                 showNav ? "translate-y-0" : "translate-y-full"
               }`}
             >
-              <MobileBottomNav />
+              <MobileBottomNav activeModal={activeModal} setActiveModal={setActiveModal} />
             </div>
           )}
         </div>
@@ -82,23 +92,26 @@ export function AppLayout() {
   );
 }
 
-import { useNavigate, useLocation } from "react-router-dom";
-import { LayoutDashboard, FolderKanban, User } from "lucide-react";
+interface MobileBottomNavProps {
+  activeModal: "notifications" | "profile" | null;
+  setActiveModal: (modal: "notifications" | "profile" | null) => void;
+}
 
-function MobileBottomNav() {
+function MobileBottomNav({ activeModal, setActiveModal }: MobileBottomNavProps) {
   const navigate = useNavigate();
   const location = useLocation();
 
   const tabs = [
     { label: "Dashboard", icon: LayoutDashboard, path: "/" },
     { label: "Projetos", icon: FolderKanban, path: "/projetos" },
-    { label: "Perfil", icon: User, path: "#" },
+    { label: "Perfil", icon: User, path: "/perfil" },
   ];
 
   return (
-    <nav className="h-16 border-t bg-card flex items-center justify-around shrink-0 safe-area-bottom">
+    <nav className="h-16 border-t bg-card flex items-center justify-around shrink-0 safe-area-bottom z-50">
       {tabs.map((tab) => {
         const active = tab.path === "/" ? location.pathname === "/" : location.pathname.startsWith(tab.path) && tab.path !== "#";
+
         return (
           <button
             key={tab.label}
