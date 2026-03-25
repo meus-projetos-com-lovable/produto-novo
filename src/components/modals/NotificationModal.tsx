@@ -25,8 +25,8 @@ const mockNotifications = [
   },
   {
     id: 2,
-    title: "Novo comentário de Maria",
-    description: "Excelente trabalho neste projeto!",
+    title: "Nova etapa concluída",
+    description: "A equipe finalizou a entrega parcial do seu projeto.",
     date: new Date(Date.now() - 1000 * 60 * 60 * 1), // 1 hour ago
     read: false,
   },
@@ -39,8 +39,8 @@ const mockNotifications = [
   },
   {
     id: 4,
-    title: "Alerta de segurança",
-    description: "Um novo dispositivo se conectou à sua conta.",
+    title: "Fatura disponível",
+    description: "O boleto referente a este mês já está disponível no painel.",
     date: new Date(Date.now() - 1000 * 60 * 60 * 24 * 3), // 3 days ago
     read: true,
   },
